@@ -6,8 +6,9 @@
 * Sponsors 
 * Users
 
-## Questions:- To Fetch a Question by id
-#### ID is question number which you have to fetch
+## Questions:- 
+### To Fetch a Question by id:-
+#### ID is Question's Level by which you have to fetch
 ```
 https://kleos2k18.appspot.com/questions/api/{id} # Request method - GET
 ```
@@ -17,6 +18,50 @@ https://kleos2k18.appspot.com/questions/api/{id} # Request method - GET
   'title': '<One Line Title>', 
   'question': '<Long Text>', 
   'image': '<Image Url>'
+}
+```
+### To Fetch Question's First Hint by ID:-
+```
+https://kleos2k18.appspot.com/questions/api/{id}/hint1 # Request method - GET
+```
+###### Response Format:-
+```
+{
+  'title': '<One Line Title>', 
+  'hint1': '<One Line Hint>'
+}
+```
+### To Fetch Question's Second Hint by ID:-
+```
+https://kleos2k18.appspot.com/questions/api/{id}/hint2 # Request method - GET
+```
+###### Response Format:-
+```
+{
+  'title': '<One Line Title>', 
+  'hint2': '<One Line Hint>'
+}
+```
+### To Fetch Question's Third Hint by ID:-
+```
+https://kleos2k18.appspot.com/questions/api/{id}/hint3 # Request method - GET
+```
+###### Response Format:-
+```
+{
+  'title': '<One Line Title>', 
+  'hint3': '<One Line Hint>'
+}
+```
+### To Fetch Question's Forth Hint by ID:-
+```
+https://kleos2k18.appspot.com/questions/api/{id}/hint4 # Request method - GET
+```
+###### Response Format:-
+```
+{
+  'title': '<One Line Title>', 
+  'hint4': '<One Line Hint>'
 }
 ```
 
@@ -158,6 +203,40 @@ https://kleos2k18.appspot.com/user/api/answer/ # Request method - POST
 ```
 { 
    "message": "Congratulations your answer is correct"
+}
+```
+### To Fetch Current Leaderboard:-
+```
+https://kleos2k18.appspot.com/user/api/leaderboard/ # Request method - GET
+```
+###### Response Format:-
+```
+{
+[
+  {
+  'username': '<Phone Number>',
+  'email': '<email>',
+  'first_name': '<First Name>',
+  'last_name': '<Last Name>',
+  'college': '<College>',
+  'level':'<Level integer>'
+  'profile':<Image Url>
+ },
+ {
+  'username': '<Phone Number>',
+  'email': '<email>',
+  'first_name': '<First Name>',
+  'last_name': '<Last Name>',
+  'college': '<College>',
+  'level':'<Level integer>'
+  'profile':<Image Url>
+ },
+ .
+ .
+ .
+ .
+ . 10 Items
+]
 }
 ```
 
