@@ -89,10 +89,10 @@ DATABASES = {
             'ENGINE': 'django.db.backends.mysql',
             #'HOST': '127.0.0.1',
             'HOST': '/cloudsql/kleos2k18:asia-south1:kleos2k18',
-            'PORT': '3306', #at the moment of this writing google cloud postgresql is using the default postgresql port 5432
+            'PORT': '3307', #at the moment of this writing google cloud postgresql is using the default postgresql port 5432
             'NAME': 'kleos2k18',
             'USER': 'shri99',
-            'PASSWORD': '<Pass>',
+            'PASSWORD': '********',
     }
 }
 
@@ -136,18 +136,11 @@ SESSION_COOKIE_AGE = 1209600
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-if DEBUG :
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-    MEDIA_URL = '/media/'
-    STATIC_URL = '/static/'
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = 'https://storage.cloud.google.com/kleos-2k18/static/'
+STATIC_ROOT = 'https://storage.cloud.google.com/kleos-2k18/static/'
 
-else:
-    STATIC_URL = 'https://storage.cloud.google.com/kleos-2k18/static/'
-    STATIC_ROOT = 'https://storage.cloud.google.com/kleos-2k18/static/'
-
-    MEDIA_ROOT = 'https://storage.cloud.google.com/kleos-2k18/'
-    MEDIA_URL = 'https://storage.cloud.google.com/kleos-2k18/'
+MEDIA_ROOT = 'https://storage.cloud.google.com/kleos-2k18/'
+MEDIA_URL = 'https://storage.cloud.google.com/kleos-2k18/'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'kleos-2k18'

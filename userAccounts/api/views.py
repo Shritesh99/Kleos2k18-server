@@ -5,6 +5,7 @@ import requests
 from django.http import HttpResponse
 from rest_framework import generics
 
+from Kleos2k18 import settings
 from userAccounts.api.serializers import UserSerializer
 from userAccounts.models import User
 from questions.models import Question
@@ -16,10 +17,22 @@ class Retrieve(generics.ListAPIView):
 
     def get(self, request, *args, **kwargs):
         username = '+%s' % (kwargs['username'])
-        qs = User.objects.values('username', 'first_name', 'last_name', 'email', 'profile', 'college','rank', 'level')
+        base_url = settings.MEDIA_URL
+
+        qs = User.objects.values('username', 'first_name', 'last_name', 'email', 'profile', 'college', 'level')
         qs = qs.filter(username=username)
         if qs.count() != 0:
-            return HttpResponse(qs, content_type='application/json')
+            base_url = settings.MEDIA_URL
+            data = {
+                'username': qs.values('username')[0]['username'],
+                'email': qs.values('email')[0]['email'],
+                'first_name': qs.values('first_name')[0]['first_name'],
+                'last_name': qs.values('last_name')[0]['last_name'],
+                'college': qs.values('college')[0]['college'],
+                'level': qs.values('level')[0]['level'],
+                'profile': base_url + str(qs.values('profile')[0]['profile'])
+            }
+            return HttpResponse(json.dumps(data), content_type='application/json')
         else:
             data = {
                 "message": "Invalid User"
@@ -50,10 +63,8 @@ class Create(generics.CreateAPIView):
                 url += '&mobile=' + username
                 url += '&otp=' + str(otp)
                 print(requests.request('POST', url))
-                user = User.objects.create_user(
+                user = User.objects.update_or_create(
                     username=username,
-                    password=password,
-                    email=email,
                     otp=otp,
                 )
                 data = {"message": "OTP Sent Successfully"}
@@ -61,10 +72,8 @@ class Create(generics.CreateAPIView):
             elif otp != "" and username != "":
                 data = {}
                 if otp == User.objects.values('otp').filter(username=username):
-                    user = User.objects.filter(username=username).update(first_name=first_name, last_name=last_name,
-                                                                         profile=profile, college=college)
                     data = {
-                        "message": "User Created Succesfully"
+                        "message": "Otp Verified"
                     }
                 else:
                     qs = User.objects.filter(username=username).delete()
@@ -72,6 +81,15 @@ class Create(generics.CreateAPIView):
                         "message": "OTP didn't match"
                     }
                 return HttpResponse(json.dumps(data), content_type='application/json')
+            elif first_name != "" and email != "":
+                data = {}
+                if otp == User.objects.values('otp').filter(username=username):
+                    user = User.objects.filter(username=username).update(email=email,password=password,first_name=first_name, last_name=last_name,
+                                                                         profile=profile, college=college)
+                    data = {
+                        "message": "User Created Succesfully"
+                    }
+                    return HttpResponse(json.dumps(data), content_type='application/json')
             else:
                 data = {"message": "Bad Request"}
                 return HttpResponse(json.dumps(data), content_type='application/json')
@@ -147,10 +165,9 @@ class Answer(generics.CreateAPIView):
         answer = request.POST.get('answer', "")
 
         if username != "" and questionID != "" and answer != "":
-            if str(answer).lower().replace(" ", "") == str(Question.objects.values('answer').filter(id=questionID)).lower().replace(" ", ""):
+            if str(answer).lower().replace(" ", "") == str(Question.objects.values('answer').filter(questionID=questionID)).lower().replace(" ", ""):
                 user = User.objects.filter(username=username).update(level=questionID)
                 data = {
-                    "level": User.objects.values('level').filter(username=username),
                     "message": "Congratulations your answer is correct"
                 }
                 return HttpResponse(json.dumps(data), content_type='application/json')
