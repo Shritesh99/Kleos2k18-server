@@ -2,9 +2,9 @@
 ##### Deployed at https://kleos2k18.appspot.com
 ##### Important Note:- Phone Number with country code is username
 ## It Contains 3 Apps 
-* [Questions](https://github.com/Shritesh99/Kleos2k18-server#question-) 
-* [Sponsors](https://github.com/Shritesh99/Kleos2k18-server#sponsors-) 
-* [Users](https://github.com/Shritesh99/Kleos2k18-server#user-)
+* [Questions](https://github.com/Shritesh99/Kleos2k18-server#questions-) 
+* [Sponsors](https://github.com/Shritesh99/Kleos2k18-server#sponsors--to-fetch-all-sponsors-as-list) 
+* [Users](https://github.com/Shritesh99/Kleos2k18-server#users--user-based-apis)
 
 ## Questions:- 
 ### To Fetch a Question by id:-
