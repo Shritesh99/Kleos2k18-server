@@ -20,6 +20,56 @@ https://kleos2k18.appspot.com/questions/api/{id} # Request method - GET
   'image': '<Image Url>'
 }
 ```
+### To Fetch all Questions:-
+```
+https://kleos2k18.appspot.com/questions/api/all # Request method - GET
+```
+###### Response Format:-
+```
+{
+  [
+   {
+    'title': '<One Line Title>', 
+    'question': '<Long Text>', 
+    'image': '<Image Url>'
+    },
+    {
+    'title': '<One Line Title>', 
+    'question': '<Long Text>', 
+    'image': '<Image Url>'
+    },
+    .
+    .
+    .
+    . All Questions
+  ]
+}
+```
+### To Fetch all Questions in Reverse order:-
+```
+https://kleos2k18.appspot.com/questions/api/reverse # Request method - GET
+```
+###### Response Format:-
+```
+{
+ [
+   {
+    'title': '<One Line Title>', 
+    'question': '<Long Text>', 
+    'image': '<Image Url>'
+    },
+    {
+    'title': '<One Line Title>', 
+    'question': '<Long Text>', 
+    'image': '<Image Url>'
+    },
+    .
+    .
+    .
+    . All Questions in reverse
+ ]
+} 
+```
 ### To Fetch Question's First Hint by ID:-
 ```
 https://kleos2k18.appspot.com/questions/api/{id}/hint1 # Request method - GET
@@ -135,6 +185,7 @@ https://kleos2k18.appspot.com/user/api/rest-auth/login # Request method - POST
 ###### Format:-
 ```
    username:<Phone Number>
+   password:<password>
 ```
 ###### To:-
 ```
@@ -155,7 +206,7 @@ https://kleos2k18.appspot.com/user/api/create/ # Request method - POST
 ```
 ###### To:-
 ```
-https://kleos2k18.appspot.com/user/api/create/ # Request method - POST
+https://kleos2k18.appspot.com/user/api/create/otp # Request method - POST
 ```
 ###### Response:-
 ```
@@ -169,16 +220,16 @@ https://kleos2k18.appspot.com/user/api/create/ # Request method - POST
 ##### Send all details to server as Post method
 ###### Format:-
 ```
+   username:<Phone Number>
    first_name:<First Name>
    last_name:<Last name>
-   password:<password>
    email:<email> 
    profile:<Image File>
    college:<college> 
 ```
 ###### To:-
 ```
-https://kleos2k18.appspot.com/user/api/create/ # Request method - POST
+https://kleos2k18.appspot.com/user/api/create/otpverified # Request method - POST
 ```
 ###### Response:-
 ```
@@ -290,12 +341,12 @@ https://kleos2k18.appspot.com/user/api/fotgotPass/ # Request method - PUT
 ```
 ###### To:-
 ```
-https://kleos2k18.appspot.com/user/api/forgotPass/ # Request method - PUT
+https://kleos2k18.appspot.com/user/api/forgotPass/otp # Request method - PUT
 ```
 ###### Response:-
 ```
 { 
-   "message": "otp Verified"
+   "message": "Otp Verified"
 }
 ```
 ##### Note:- If OTP verification failed then follow back from step 1
@@ -309,7 +360,7 @@ https://kleos2k18.appspot.com/user/api/forgotPass/ # Request method - PUT
 ```
 ###### To:-
 ```
-https://kleos2k18.appspot.com/user/api/forgotPass/ # Request method - PUT
+https://kleos2k18.appspot.com/user/api/forgotPass/otpverified # Request method - PUT
 ```
 ###### Response:-
 ```
