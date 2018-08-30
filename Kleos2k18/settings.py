@@ -89,7 +89,7 @@ DATABASES = {
             'ENGINE': 'django.db.backends.mysql',
             #'HOST': '127.0.0.1',
             'HOST': '/cloudsql/kleos2k18:asia-south1:kleos2k18',
-            'PORT': '3307', #at the moment of this writing google cloud postgresql is using the default postgresql port 5432
+            'PORT': '3306',
             'NAME': 'kleos2k18',
             'USER': 'shri99',
             'PASSWORD': '********',

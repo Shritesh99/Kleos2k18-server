@@ -12,6 +12,10 @@ class Question(models.Model):
     questionID = models.CharField(max_length=10, blank=True)
     question = models.TextField(max_length=500)
     answer = models.TextField(max_length=100)
+    hint1 = models.TextField(max_length=100,blank=True,null=True)
+    hint2 = models.TextField(max_length=100,blank=True,null=True)
+    hint3 = models.TextField(max_length=100,blank=True,null=True)
+    hint4 = models.TextField(max_length=100,blank=True,null=True)
     image = models.ImageField(upload_to=get_upload_url, blank=True)
 
     def __str__(self):
