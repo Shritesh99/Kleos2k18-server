@@ -26,5 +26,6 @@ urlpatterns = [
     path('user/', include('userAccounts.urls')),
     path('questions/', include('questions.urls')),
     path('sponsors/', include('sponsors.urls')),
+    path('favicon.ico/', RedirectView.as_view(url='/static/images/favicon.ico'))
 
 ] + static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)

@@ -13,6 +13,5 @@ class UserSerializer(serializers.ModelSerializer):
                 'last_name',
                 'profile',
                 'college',
-                'rank',
                 'level'
                 )

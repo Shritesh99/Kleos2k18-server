@@ -4,7 +4,6 @@ from django.contrib.auth.hashers import make_password
 import requests
 from django.http import HttpResponse
 from rest_framework import generics
-
 from Kleos2k18 import settings
 from userAccounts.api.serializers import UserSerializer
 from userAccounts.models import User
@@ -12,17 +11,16 @@ from questions.models import Question
 
 
 class Retrieve(generics.ListAPIView):
-    queryset = User.objects.all()
+    queryset = User.objects.all().filter()
     serializer_class = UserSerializer
 
     def get(self, request, *args, **kwargs):
         username = '+%s' % (kwargs['username'])
         base_url = settings.MEDIA_URL
 
-        qs = User.objects.values('username', 'first_name', 'last_name', 'email', 'profile', 'college', 'level')
+        qs = User.objects.values('username', 'first_name', 'last_name', 'email', 'college', 'level')
         qs = qs.filter(username=username)
         if qs.count() != 0:
-            base_url = settings.MEDIA_URL
             data = {
                 'username': qs.values('username')[0]['username'],
                 'email': qs.values('email')[0]['email'],
@@ -30,7 +28,6 @@ class Retrieve(generics.ListAPIView):
                 'last_name': qs.values('last_name')[0]['last_name'],
                 'college': qs.values('college')[0]['college'],
                 'level': qs.values('level')[0]['level'],
-                'profile': base_url + str(qs.values('profile')[0]['profile'])
             }
             return HttpResponse(json.dumps(data), content_type='application/json')
         else:
@@ -55,6 +52,7 @@ class Create(generics.CreateAPIView):
         url += '&mobile=' + username
         url += '&otp=' + str(otp)
         print(requests.request('POST', url))
+        User.objects.filter(username=username).delete()
         user = User.objects.update_or_create(
             username=username,
             password=password,
@@ -72,7 +70,7 @@ class OTPVerification(generics.CreateAPIView):
         username = request.POST.get('username', "")
         otp = request.POST.get('otp', "")
         data = {}
-        if otp == User.objects.values('otp').filter(username=username):
+        if str(otp) == str(User.objects.values('otp').filter(username=username)[0]['otp']):
             data = {
                 "message": "Otp Verified"
             }
@@ -93,14 +91,26 @@ class OTPVerified(generics.CreateAPIView):
         first_name = request.POST.get('first_name', "")
         last_name = request.POST.get('last_name', "")
         email = request.POST.get('email', "")
-        profile = request.FILES.get('profile', None)
         college = request.POST.get('college', "")
-        otp = request.POST.get('otp', "")
         data = {}
         user = User.objects.filter(username=username).update(email=email, first_name=first_name, last_name=last_name,
-                                                             profile=profile, college=college)
+                                                             college=college)
         data = {
             "message": "User Created Succesfully"
+        }
+        return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+class uploadProfile(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def post(self, request, *args, **kwargs):
+        username = request.POST.get('username', "")
+        profile = request.FILES.get('profile', None)
+        user = User.objects.filter(username=username).update(profile=profile)
+        data = {
+            "message": "Profile Uploaded Successfully"
         }
         return HttpResponse(json.dumps(data), content_type='application/json')
 
@@ -118,10 +128,9 @@ class Update(generics.UpdateAPIView):
             password = make_password(
                 request.PUT.get('password', User.objects.values('password').filter(username=username)))
             email = request.PUT.get('email', User.objects.values('email').filter(username=username))
-            profile = request.FILES.get('profile', User.objects.values('profile').filter(username=username))
             college = request.PUT.get('college', User.objects.values('college').filter(username=username))
             user = User.objects.filter(username=username).update(first_name=first_name, last_name=last_name,
-                                                                 password=password, email=email, profile=profile,
+                                                                 password=password, email=email,
                                                                  college=college)
             return HttpResponse(json.dumps({"message": "User Updated successfully"}), content_type='application/json')
 
@@ -194,7 +203,7 @@ class Answer(generics.CreateAPIView):
 
         if username != "" and questionID != "" and answer != "":
             if str(answer).lower().replace(" ", "") == str(
-                    Question.objects.values('answer').filter(questionID=questionID)).lower().replace(" ", ""):
+                    str(Question.objects.values('answer').filter(questionID=questionID))[0]['answer']).lower().replace(" ", ""):
                 user = User.objects.filter(username=username).update(level=questionID)
                 data = {
                     "message": "Congratulations your answer is correct"
@@ -211,6 +220,7 @@ class Answer(generics.CreateAPIView):
                 "message": "bad request"
             }
             return HttpResponse(json.dumps(data), content_type='application/json')
+
 
 
 class Leaderboard(generics.ListAPIView):

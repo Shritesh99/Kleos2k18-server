@@ -7,6 +7,7 @@ urlpatterns = [
     path('create/new', Create.as_view()),
     path('create/otp', OTPVerification.as_view()),
     path('create/otpverified', OTPVerified.as_view()),
+    path('create/uploadPic', uploadProfile.as_view()),
     path('forgotPass/', ForgotPassword.as_view()),
     path('forgotPass/otp', ForgotPasswordOTP.as_view()),
     path('forgotPass/otpverified', ForgotPasswordOTPVerified.as_view()),
