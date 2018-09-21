@@ -88,11 +88,11 @@ DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             #'HOST': '127.0.0.1',
-            'HOST': '/cloudsql/kleos2k18:asia-south1:kleos2k18',
-            'PORT': '3306',
+            'HOST': '/cloudsql/kleos2k18:asia-south1:kleos2k18',#TODO: change while deployment
+            'PORT': '3306', #TODO: change while deployment
             'NAME': 'kleos2k18',
             'USER': 'shri99',
-            'PASSWORD': '********',
+            'PASSWORD': '*********',
     }
 }
 

@@ -9,7 +9,7 @@ def get_upload_url(instance, filename):
 
 class Question(models.Model):
     title = models.CharField(max_length=100, unique=True)
-    questionID = models.CharField(max_length=10, blank=True)
+    questionID = models.IntegerField( blank=True)
     question = models.TextField(max_length=500)
     answer = models.TextField(max_length=100)
     hint1 = models.TextField(max_length=100,blank=True,null=True)

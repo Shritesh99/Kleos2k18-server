@@ -75,7 +75,6 @@ class OTPVerification(generics.CreateAPIView):
                 "message": "Otp Verified"
             }
         else:
-            qs = User.objects.filter(username=username).delete()
             data = {
                 "message": "OTP didn't match"
             }
@@ -94,7 +93,7 @@ class OTPVerified(generics.CreateAPIView):
         college = request.POST.get('college', "")
         data = {}
         user = User.objects.filter(username=username).update(email=email, first_name=first_name, last_name=last_name,
-                                                             college=college)
+                                                             college=college,level=0)
         data = {
             "message": "User Created Succesfully"
         }
@@ -131,11 +130,23 @@ class Update(generics.UpdateAPIView):
             college = request.PUT.get('college', User.objects.values('college').filter(username=username))
             user = User.objects.filter(username=username).update(first_name=first_name, last_name=last_name,
                                                                  password=password, email=email,
-                                                                 college=college)
+                                                                 college=college,level=0)
             return HttpResponse(json.dumps({"message": "User Updated successfully"}), content_type='application/json')
 
         else:
             return HttpResponse(json.dumps({"message": "User does not exist"}), content_type='application/json')
+
+class delete(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def post(self, request, *args, **kwargs):
+        username = request.POST.get('username', "")
+        User.objects.filter(username=username).delete()
+        data = {
+            "message": "User deleted Successfully"
+        }
+        return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 class ForgotPassword(generics.UpdateAPIView):
@@ -200,10 +211,8 @@ class Answer(generics.CreateAPIView):
         username = request.POST.get('username', "")
         questionID = request.POST.get('questionID', "")
         answer = request.POST.get('answer', "")
-
         if username != "" and questionID != "" and answer != "":
-            if str(answer).lower().replace(" ", "") == str(
-                    str(Question.objects.values('answer').filter(questionID=questionID))[0]['answer']).lower().replace(" ", ""):
+            if str(answer).lower().replace(" ", "") == str(Question.objects.values('answer').filter(questionID=questionID)[0]['answer']).lower().replace(" ", ""):
                 user = User.objects.filter(username=username).update(level=questionID)
                 data = {
                     "message": "Congratulations your answer is correct"

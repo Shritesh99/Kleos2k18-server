@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:id>/hint2', QuestionHint2.as_view() , name='questionHint2'),
     path('<int:id>/hint3', QuestionHint3.as_view() , name='questionHint3'),
     path('<int:id>/hint4', QuestionHint4.as_view() , name='questionHint4'),
+    path('<int:id>/hints', QuestionHintAll.as_view() , name='questionHints'),
 ]
