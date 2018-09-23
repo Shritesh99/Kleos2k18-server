@@ -86,13 +86,8 @@ TEMPLATES = [
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
 DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            #'HOST': '127.0.0.1',
-            'HOST': '/cloudsql/kleos2k18:asia-south1:kleos2k18',#TODO: change while deployment
-            'PORT': '3306', #TODO: change while deployment
-            'NAME': 'kleos2k18',
-            'USER': 'shri99',
-            'PASSWORD': '*********',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

@@ -10,7 +10,7 @@ def get_upload_url(instance, filename):
 
 class User(AbstractUser):
     AbstractUser.username = PhoneNumberField(unique=True)
-    profile = models.ImageField(upload_to=get_upload_url)
+    profile = models.ImageField(upload_to=get_upload_url, blank=True)
     college = models.CharField(max_length=255, blank=True)
     otp = models.IntegerField(blank=True,null=True)
     level = models.IntegerField(blank=True,null=True)
