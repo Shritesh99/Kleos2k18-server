@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '#(8i^fnz)@t40ssk8#g%oo(_x&8o5v*ck8i6oy)5v)rjcnn4xu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False #TODO: change while deployment
+DEBUG = True #TODO: change while deployment
 
 ALLOWED_HOSTS = [
     'kleos2k18.appspot.com', # must add the app engine (project-id) domain here
