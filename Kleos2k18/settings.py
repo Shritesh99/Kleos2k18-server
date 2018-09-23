@@ -135,11 +135,11 @@ SESSION_COOKIE_AGE = 1209600
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-STATIC_URL = 'https://storage.cloud.google.com/kleos-2k18/static/'
-STATIC_ROOT = 'https://storage.cloud.google.com/kleos-2k18/static/'
+STATIC_URL = '/static/'
 
-MEDIA_ROOT = 'https://storage.cloud.google.com/kleos-2k18/'
-MEDIA_URL = 'https://storage.cloud.google.com/kleos-2k18/'
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_BUCKET_NAME = 'kleos-2k18'
+MEDIA_ROOT = os.path.join(BASE_DIR , 'media')
+
+MEDIA_URL = '/media/'
+
