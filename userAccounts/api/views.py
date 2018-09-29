@@ -45,7 +45,7 @@ class Create(generics.CreateAPIView):
         username = request.POST.get('username', "")
         password = make_password(request.POST.get('password', ""))
         otp = randint(100000, 999999)
-        authKey = '232164AmNrF6I3wJ5b7d7e89'
+        authKey = '238837A7MVgzyG6Svd5ba4def9'
         url = 'http://control.msg91.com/api/sendotp.php?authkey=' + authKey
         url += '&message=Welcome to Kleos Your Verification code is ' + str(otp)
         url += '&sender=KLEOSAPP'
