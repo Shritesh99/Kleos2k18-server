@@ -11,7 +11,7 @@ cffi==1.11.5
 chardet==3.0.4
 click==6.7
 defusedxml==0.5.0
-Django==2.1
+Django==2.1.2
 django-allauth==0.36.0
 django-bootstrap3==10.0.1
 django-phonenumber-field==2.0.1
