@@ -1,5 +1,5 @@
 # Kleos2k18 App Server
-# Worthless Backend of some crap Android project. I still don't know why i did this project.
+## Committee's Project for Quiz App's Backend.
 ##### Deployed at https://kleos2k18.appspot.com
 ##### Important Note:- Phone Number with country code is username
 ## It Contains 3 Apps 
