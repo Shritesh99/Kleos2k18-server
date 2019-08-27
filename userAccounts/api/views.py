@@ -1,12 +1,13 @@
 import json
+import sys
+sys.path.append("..")
 from random import randint
 from django.contrib.auth.hashers import make_password
 import requests
 from django.http import HttpResponse
 from rest_framework import generics
-from Kleos2k18 import settings
-from userAccounts.api.serializers import UserSerializer
-from userAccounts.models import User
+from .serializers import UserSerializer
+from ..models import User
 from questions.models import Question
 
 
@@ -16,7 +17,7 @@ class Retrieve(generics.ListAPIView):
 
     def get(self, request, *args, **kwargs):
         username = '+%s' % (kwargs['username'])
-        base_url = settings.MEDIA_URL
+        # base_url = settings.MEDIA_URL
 
         qs = User.objects.values('username', 'first_name', 'last_name', 'email', 'college', 'level')
         qs = qs.filter(username=username)
@@ -45,13 +46,15 @@ class Create(generics.CreateAPIView):
         username = request.POST.get('username', "")
         password = make_password(request.POST.get('password', ""))
         otp = randint(100000, 999999)
-        authKey = '232164AmNrF6I3wJ5b7d7e89'
-        url = 'http://control.msg91.com/api/sendotp.php?authkey=' + authKey
-        url += '&message=Welcome to Kleos Your Verification code is ' + str(otp)
-        url += '&sender=KLEOSAPP'
-        url += '&mobile=' + username
-        url += '&otp=' + str(otp)
-        print(requests.request('POST', url))
+        authKey = '238837A7MVgzyG6Svd5ba4def9'
+        url = 'http://sms1.codenicely.in/api/sendhttp.php?authkey=' + authKey
+        url += '&mobiles=' + str(username)[1:]
+        url += '&message=' + str(otp)
+        url += '&sender=KLEOS'
+        url += '&route=4'
+        url += '&country=91'
+        url += '&response=json'
+        print(requests.request('GET', url))
         User.objects.filter(username=username).delete()
         user = User.objects.update_or_create(
             username=username,
@@ -161,13 +164,15 @@ class ForgotPassword(generics.UpdateAPIView):
             user = User.objects.filter(username=username)
             if user.exists():
                 otp = randint(100000, 999999)
-                authKey = '232164AmNrF6I3wJ5b7d7e89'
-                url = 'http://control.msg91.com/api/sendotp.php?authkey=' + authKey
-                url += '&message=Welcome to Kleos Your Verification code is ' + str(otp)
-                url += '&sender=KLEOSAPP'
-                url += '&mobile=' + username
-                url += '&otp=' + str(otp)
-                print(requests.request('POST', url))
+                authKey = '238837A7MVgzyG6Svd5ba4def9'
+                url = 'http://sms1.codenicely.in/api/sendhttp.php?authkey=' + authKey
+                url += '&mobiles=' + str(username)[1:]
+                url += '&message=' + str(otp)
+                url += '&sender=KLEOS'
+                url += '&route=4'
+                url += '&country=91'
+                url += '&response=json'
+                print(requests.request('GET', url))
                 user.update(otp=otp)
                 data = {"message": "OTP Sent Successfully"}
             else:
@@ -233,5 +238,5 @@ class Answer(generics.CreateAPIView):
 
 
 class Leaderboard(generics.ListAPIView):
-    queryset = User.objects.all().order_by('-level')[:10]
+    queryset = User.objects.all().order_by('-created_at').order_by('-level')[:10]
     serializer_class = UserSerializer

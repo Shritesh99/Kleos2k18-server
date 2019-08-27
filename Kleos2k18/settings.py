@@ -23,12 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '#(8i^fnz)@t40ssk8#g%oo(_x&8o5v*ck8i6oy)5v)rjcnn4xu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True #TODO: change while deployment
+DEBUG = False #TODO: change while deployment
 
-ALLOWED_HOSTS = [
-    'kleos2k18.appspot.com', # must add the app engine (project-id) domain here
-    '127.0.0.1', # for local testing
-]
+ALLOWED_HOSTS = ['*', '0.0.0.0']
 
 
 # Application definition
@@ -86,8 +83,12 @@ TEMPLATES = [
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
 DATABASES = {
         'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DJANGO_DB_NAME'),
+            'USER': os.environ.get('DJANGO_DB_USER'),
+            'PASSWORD': os.environ.get('DJANGO_DB_PASS'),
+            'HOST': os.environ.get('DJANGO_DB_HOST'),
+            'PORT': os.getenv('DJANGO_DB_PORT', 5432)
     }
 }
 
@@ -137,7 +138,7 @@ SESSION_COOKIE_AGE = 1209600
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'app/../static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR , 'media')
 

@@ -17,8 +17,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
-
-from Kleos2k18 import settings
+from . import settings
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/admin')),
@@ -28,4 +27,4 @@ urlpatterns = [
     path('sponsors/', include('sponsors.urls')),
     path('favicon.ico/', RedirectView.as_view(url='/static/images/favicon.ico'))
 
-] + static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

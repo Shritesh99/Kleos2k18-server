@@ -5,7 +5,7 @@ from rest_framework import generics
 
 from Kleos2k18 import settings
 from .serializers import QuestionSerializer
-from questions.models import Question
+from ..models import Question
 
 
 class QuestionsAll(generics.ListAPIView):
