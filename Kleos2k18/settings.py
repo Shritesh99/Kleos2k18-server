@@ -83,12 +83,12 @@ TEMPLATES = [
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
 DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DJANGO_DB_NAME'),
-            'USER': os.environ.get('DJANGO_DB_USER'),
-            'PASSWORD': os.environ.get('DJANGO_DB_PASS'),
-            'HOST': os.environ.get('DJANGO_DB_HOST'),
-            'PORT': os.getenv('DJANGO_DB_PORT', 5432)
+             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+             'NAME': 'db',
+             'USER': 'admin',
+             'PASSWORD': '123',
+             'HOST': 'localhost',
+             'PORT': '',
     }
 }
 
