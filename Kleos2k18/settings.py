@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '#(8i^fnz)@t40ssk8#g%oo(_x&8o5v*ck8i6oy)5v)rjcnn4xu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False #TODO: change while deployment
+DEBUG = True #TODO: change while deployment
 
 ALLOWED_HOSTS = ['*', '0.0.0.0']
 
@@ -120,7 +120,7 @@ REST_SESSION_LOGIN = False
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Kolkata'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
