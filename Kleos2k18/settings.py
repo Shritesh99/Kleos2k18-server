@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '#(8i^fnz)@t40ssk8#g%oo(_x&8o5v*ck8i6oy)5v)rjcnn4xu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False #TODO: change while deployment
+DEBUG = True #TODO: change while deployment
 
 ALLOWED_HOSTS = ['*', '0.0.0.0']
 
@@ -84,11 +84,11 @@ TEMPLATES = [
 DATABASES = {
         'default': {
              'ENGINE': 'django.db.backends.postgresql_psycopg2',
-             'NAME': 'kleos',
-             'USER': 'admin',
-             'PASSWORD': '123',
-             'HOST': 'localhost',
-             'PORT': '',
+             'NAME': 'dszvtzzl',
+             'USER': 'dszvtzzl',
+             'PASSWORD':'jd-Uax1bh3lS_Y1l_TrM6bxoNz49Vpgy',
+             'HOST': 'isilo.db.elephantsql.com',
+             'PORT': '5432',
     }
 }
 
@@ -120,7 +120,7 @@ REST_SESSION_LOGIN = False
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Kolkata'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -142,6 +142,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
-
